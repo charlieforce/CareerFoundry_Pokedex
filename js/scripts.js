@@ -1,3 +1,4 @@
+Var pokemonRepository = (function () {
 var repository =[
   {
     name: 'Bulbasaur',
@@ -13,7 +14,21 @@ var repository =[
     name: 'Squirtle',
     height: 0.5,
     types: ['water']
-  }]
+  }];
+
+  function add(pokemon) {
+    repository.push(pokemon);
+  }
+
+  function getAll() {
+    return repository;
+  }
+
+  return {
+    add: add,
+    getAll: getAll
+  };
+})();
 
   repository.forEach(function(property){
   document.write("<p>" + property.name + "</p>");
@@ -32,3 +47,4 @@ var repository =[
 // Calling printArrayDetails function twice
 printArrayDetails();
 printArrayDetails();
+console.log(pokemonRepository.getAll()); // []
