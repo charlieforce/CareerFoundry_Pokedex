@@ -1,4 +1,4 @@
-var repository =
+var repository =[
   {
     name: 'Bulbasaur',
     height: 0.7,
@@ -13,10 +13,10 @@ var repository =
     name: 'Squirtle',
     height: 0.5,
     types: ['water']
-  }
+  }]
 
-Object.keys(repository).forEach(function(property){
-  console.log(repository[property]);
+  repository.forEach(function(property){
+  document.write("<p>" + property.name + "</p>");
 });
 
 
