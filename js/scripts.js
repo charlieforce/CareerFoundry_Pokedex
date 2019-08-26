@@ -25,7 +25,7 @@ var pokemonRepository = (function() {
           listitem.appendChild(btn);
           btn.innerText=pokemon.name;
           btn.classList.add('pokebtn');
-          listitem.classList.add('pokeitem');
+          listitem.add('pokeitem');
           btn.addEventListener('click', function(event) {
           showDetails(pokemon);
         }}
@@ -59,4 +59,9 @@ allPokemon.forEach(function(property) {
       //property.name +
       //"<img width='25px' src='https://image.flaticon.com/icons/png/128/188/188987.png'</p>"
   );
+
+pokemonRepository.getAll().forEach(function(pokemon){
+  pokemonRepository.addListItem(pokemon);
+
+  });
 });
