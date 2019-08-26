@@ -28,12 +28,11 @@ var pokemonRepository = (function() {
           listitem.classList.add('pokeitem');
           btn.addEventListener('click', function(event) {
           showDetails(pokemon);
-
+        }}
     function showDetails(item) {
-        pokemonRepository.loadDetails(item).then(function () {
-        showModal(item);
-        });
+        console.log (pokemon);
       }
+
 
   function add(pokemon) {
     repository.push(pokemon);
