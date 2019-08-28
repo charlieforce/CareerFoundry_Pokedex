@@ -31,6 +31,9 @@ var pokemonRepository = (function() {
            listitem.appendChild(btn);
            listitem.add('pokeitem');
            pokelist.appendChild(listitem);
+           function showDetails(item) {
+      console.log (pokemon);
+    }
   }
 
 
@@ -62,6 +65,6 @@ var pokemonRepository = (function() {
 
 pokemonRepository.getAll().forEach(function(pokemon){
   pokemonRepository.addListItem(pokemon);
+  return pokemonRepository;
 
   });
-});
