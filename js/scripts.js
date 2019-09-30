@@ -1,22 +1,6 @@
 var pokemonRepository = (function() {
-  var repository = [
-    {
-      name: "Bulbasaur",
-      height: 0.7,
-      types: ["grass", "poison"]
-    },
-    {
-      name: "Charizard",
-      height: 1.7,
-      types: ["fire", "flying"]
-    },
-    {
-      name: "Squirtle",
-      height: 0.5,
-      types: ["water"]
-    }
-  ];
-
+  var repository = [];
+  var apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
   function addListItem(pokemon){
            var pokelist = document.querySelector('.pokemonlist');
            var listitem = document.createElement('li');
@@ -32,10 +16,14 @@ var pokemonRepository = (function() {
            listitem.add('pokeitem');
            pokelist.appendChild(listitem);
            function showDetails(item) {
-      console.log (pokemon);
-    }
+      //console.log (pokemon);
+    });
   }
-
+  function showDetails(item) {
+  pokemonRepository.loadDetails(item).then(function () {
+    console.log(item);   });
+});
+}
 
   function add(pokemon) {
     repository.push(pokemon);
@@ -45,9 +33,50 @@ var pokemonRepository = (function() {
     return repository;
   }
 
+  function catchAll() {
+    return repository;
+}
+
+  function loadList() {
+   return fetch(apiUrl).then(function (response) {
+     return response.json();
+   }).then(function (json) {
+     json.results.forEach(function (item) {
+       var pokemon = {
+         name: item.name,
+         detailsUrl: item.url
+       };
+       add(pokemon);
+     });
+   }).catch(function (e) {
+     console.error(e);
+   });
+ }).catch(function (error) { /*Load Functions Set In Order To Retrieve Data From Pokemon API*/
+  console.error(error);
+});
+}
+
+ function loadDetails(item) {
+    var url = item.detailsUrl;
+    return fetch(url).then(function (response) {
+      return response.json();
+    }).then(function (details) {
+      // Now we add the details to the item
+      item.imageUrl = details.sprites.front_default;
+      item.height = details.height;
+      item.types = Object.keys(details.types);
+    }).catch(function (e) {
+      console.error(e);
+    });
+  }
+
+
   return {
     add: add,
-    getAll: getAll
+    getAll: getAll,
+    search: search,
+    loadList: loadList,
+    loadDetails: loadDetails
   };
 })();
 
@@ -62,6 +91,13 @@ var pokemonRepository = (function() {
       //property.name +
       //"<img width='25px' src='https://image.flaticon.com/icons/png/128/188/188987.png'</p>"
   //);
+
+  pokemonRepository.loadList().then(function() {
+    // Now the data is loaded!
+    pokemonRepository.getAll().forEach(function(pokemon){
+      addListItem(pokemon);
+    });
+  });
 
 pokemonRepository.getAll().forEach(function(pokemon){
   pokemonRepository.addListItem(pokemon);
