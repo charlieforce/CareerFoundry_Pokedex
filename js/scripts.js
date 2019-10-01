@@ -10,19 +10,15 @@ var pokemonRepository = (function () {
            btn.classList.add('pokebtn');
            btn.addEventListener('click', function(event) {
            showDetails(pokemon);
-         });
 
            listitem.appendChild(btn);
            listitem.add('pokeitem');
            pokelist.appendChild(listitem);
-           function showDetails(item) {
-      console.log (pokemon);
-    }
-  }
+  });
+}
   function showDetails(item) {
   pokemonRepository.loadDetails(item).then(function () {
     console.log(item);
-
 });
   }
   function add(pokemon) {
@@ -32,10 +28,6 @@ var pokemonRepository = (function () {
   function getAll() {
     return repository;
   }
-
-  function catchAll() {
-    return repository;
-}
 
   function loadList() {
    return fetch(apiUrl).then(function (response) {
@@ -74,22 +66,8 @@ var pokemonRepository = (function () {
     loadList: loadList,
     loadDetails: loadDetails
 };
-
-
-//var allPokemon = pokemonRepository.getAll();
-
-//var $pokemonsListContainer = document.querySelector('.pokemon-list');
-//var $allPokemon = document.querySelector ('pokemon-list');
-//var listItem = document.createElement('li')
-//allPokemon.forEach(function(property) {
-  //document.write(
-    //"<p>" +
-      //property.name +
-      //"<img width='25px' src='https://image.flaticon.com/icons/png/128/188/188987.png'</p>"
-  //);
-
+})();
   pokemonRepository.loadList().then(function() {
-    // Now the data is loaded!
     pokemonRepository.getAll().forEach(function(pokemon){
       pokemonRepository.addListItem(pokemon);
     });
