@@ -1,4 +1,4 @@
-var pokemonRepository = (function() {
+var pokemonRepository = (function () {
   var repository = [];
   var apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
   function addListItem(pokemon){
@@ -10,21 +10,21 @@ var pokemonRepository = (function() {
            btn.classList.add('pokebtn');
            btn.addEventListener('click', function(event) {
            showDetails(pokemon);
-         })
+         });
 
            listitem.appendChild(btn);
            listitem.add('pokeitem');
            pokelist.appendChild(listitem);
            function showDetails(item) {
-      //console.log (pokemon);
-    });
+      console.log (pokemon);
+    }
   }
   function showDetails(item) {
   pokemonRepository.loadDetails(item).then(function () {
-    console.log(item);   });
-});
-}
+    console.log(item);
 
+});
+  }
   function add(pokemon) {
     repository.push(pokemon);
   }
@@ -51,9 +51,6 @@ var pokemonRepository = (function() {
    }).catch(function (e) {
      console.error(e);
    });
- }).catch(function (error) { /*Load Functions Set In Order To Retrieve Data From Pokemon API*/
-  console.error(error);
-});
 }
 
  function loadDetails(item) {
@@ -68,17 +65,16 @@ var pokemonRepository = (function() {
     }).catch(function (e) {
       console.error(e);
     });
-  }
 
-
+ }
   return {
     add: add,
+    addListitem: addListitem,
     getAll: getAll,
-    search: search,
     loadList: loadList,
     loadDetails: loadDetails
-  };
-})();
+};
+
 
 //var allPokemon = pokemonRepository.getAll();
 
@@ -95,12 +91,6 @@ var pokemonRepository = (function() {
   pokemonRepository.loadList().then(function() {
     // Now the data is loaded!
     pokemonRepository.getAll().forEach(function(pokemon){
-      addListItem(pokemon);
+      pokemonRepository.addListItem(pokemon);
     });
-  });
-
-pokemonRepository.getAll().forEach(function(pokemon){
-  pokemonRepository.addListItem(pokemon);
-  return pokemonRepository;
-
   });
